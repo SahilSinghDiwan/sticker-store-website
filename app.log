@@ -1,0 +1,58 @@
+2025-03-20 23:34:11,558 INFO Updating authtoken for default "config_path" of "ngrok_path": /Users/sahil/Library/Application Support/ngrok/ngrok
+2025-03-20 23:34:11,588 INFO Opening tunnel named: http-8027-ea05a9ba-82c0-4656-b3a8-94e962d4cb45
+2025-03-20 23:34:11,611 INFO t=2025-03-20T23:34:11+0530 lvl=info msg="no configuration paths supplied"
+2025-03-20 23:34:11,612 INFO t=2025-03-20T23:34:11+0530 lvl=info msg="using configuration at default config path" path="/Users/sahil/Library/Application Support/ngrok/ngrok.yml"
+2025-03-20 23:34:11,612 INFO t=2025-03-20T23:34:11+0530 lvl=info msg="open config file" path="/Users/sahil/Library/Application Support/ngrok/ngrok.yml" err=nil
+2025-03-20 23:34:11,612 INFO t=2025-03-20T23:34:11+0530 lvl=info msg="starting web service" obj=web addr=127.0.0.1:4040 allow_hosts=[]
+2025-03-20 23:34:12,944 INFO t=2025-03-20T23:34:12+0530 lvl=info msg="update available" obj=updater
+2025-03-20 23:34:13,043 INFO t=2025-03-20T23:34:13+0530 lvl=info msg="client session established" obj=tunnels.session
+2025-03-20 23:34:13,044 INFO t=2025-03-20T23:34:13+0530 lvl=info msg="tunnel session started" obj=tunnels.session
+2025-03-20 23:34:13,059 INFO t=2025-03-20T23:34:13+0530 lvl=info msg=start pg=/api/tunnels id=8e57baf4afa3f23a
+2025-03-20 23:34:13,059 INFO t=2025-03-20T23:34:13+0530 lvl=info msg=end pg=/api/tunnels id=8e57baf4afa3f23a status=200 dur=306.459µs
+2025-03-20 23:34:13,060 INFO t=2025-03-20T23:34:13+0530 lvl=info msg=start pg=/api/tunnels id=ee0fd45cfcd32cf5
+2025-03-20 23:34:13,060 INFO t=2025-03-20T23:34:13+0530 lvl=info msg=end pg=/api/tunnels id=ee0fd45cfcd32cf5 status=200 dur=74.25µs
+2025-03-20 23:34:13,061 INFO t=2025-03-20T23:34:13+0530 lvl=info msg=start pg=/api/tunnels id=d1a66891b0950b24
+2025-03-20 23:34:13,545 INFO t=2025-03-20T23:34:13+0530 lvl=info msg="started tunnel" obj=tunnels name=http-8027-ea05a9ba-82c0-4656-b3a8-94e962d4cb45 addr=http://localhost:8027 url=https://top-baboon-liked.ngrok-free.app
+2025-03-20 23:34:13,546 INFO t=2025-03-20T23:34:13+0530 lvl=info msg=end pg=/api/tunnels id=d1a66891b0950b24 status=201 dur=482.752167ms
+2025-03-20 23:34:14,561 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8027
+ * Running on http://192.168.214.222:8027
+2025-03-20 23:34:14,561 INFO [33mPress CTRL+C to quit[0m
+2025-03-20 23:34:22,444 INFO t=2025-03-20T23:34:22+0530 lvl=info msg="join connections" obj=join id=2a7fe70f1cdc l=127.0.0.1:8027 r=44.195.36.252:55622
+2025-03-20 23:34:22,444 INFO 127.0.0.1 - - [20/Mar/2025 23:34:22] "[33mGET / HTTP/1.1[0m" 404 -
+2025-03-20 23:48:04,282 INFO t=2025-03-20T23:48:04+0530 lvl=info msg="join connections" obj=join id=e7f2902cc91b l=127.0.0.1:8027 r=[2409:40f2:212b:41e2:1cd1:845d:3402:878b]:56630
+2025-03-20 23:48:04,283 INFO 127.0.0.1 - - [20/Mar/2025 23:48:04] "OPTIONS /signup HTTP/1.1" 200 -
+2025-03-20 23:48:08,819 INFO t=2025-03-20T23:48:08+0530 lvl=info msg="join connections" obj=join id=7b8bff700d70 l=127.0.0.1:8027 r=[2409:40f2:212b:41e2:1cd1:845d:3402:878b]:56630
+2025-03-20 23:48:08,820 INFO 127.0.0.1 - - [20/Mar/2025 23:48:08] "OPTIONS /signup HTTP/1.1" 200 -
+2025-03-20 23:48:09,662 INFO t=2025-03-20T23:48:09+0530 lvl=info msg="join connections" obj=join id=9c361d6e03fc l=127.0.0.1:8027 r=[2409:40f2:212b:41e2:1cd1:845d:3402:878b]:56630
+2025-03-20 23:48:09,663 INFO 127.0.0.1 - - [20/Mar/2025 23:48:09] "OPTIONS /signup HTTP/1.1" 200 -
+2025-03-20 23:48:16,748 INFO t=2025-03-20T23:48:16+0530 lvl=info msg="join connections" obj=join id=0c39cd6a6555 l=127.0.0.1:8027 r=[2409:40f2:212b:41e2:1cd1:845d:3402:878b]:56630
+2025-03-20 23:48:16,748 INFO 127.0.0.1 - - [20/Mar/2025 23:48:16] "OPTIONS /login HTTP/1.1" 200 -
+2025-03-20 23:49:04,619 INFO t=2025-03-20T23:49:04+0530 lvl=info msg="join connections" obj=join id=0297baa249b7 l=127.0.0.1:8027 r=[2409:40f2:212b:41e2:1cd1:845d:3402:878b]:56749
+2025-03-20 23:49:34,999 ERROR Error during login: localhost:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 67dc58993bbad003bffb5f99, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('localhost:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+2025-03-20 23:49:35,000 INFO 127.0.0.1 - - [20/Mar/2025 23:49:35] "[35m[1mPOST /login HTTP/1.1[0m" 500 -
+2025-03-20 23:51:34,558 INFO t=2025-03-20T23:51:34+0530 lvl=info msg="join connections" obj=join id=625c4321db14 l=127.0.0.1:8027 r=[2409:40f2:212b:41e2:1cd1:845d:3402:878b]:57735
+2025-03-20 23:52:04,667 ERROR Error during signup: localhost:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 67dc58993bbad003bffb5f99, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('localhost:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+2025-03-20 23:52:04,669 INFO 127.0.0.1 - - [20/Mar/2025 23:52:04] "[35m[1mPOST /signup HTTP/1.1[0m" 500 -
+2025-03-21 00:04:16,361 ERROR t=2025-03-21T00:04:16+0530 lvl=eror msg="session closed, starting reconnect loop" obj=tunnels.session obj=csess id=a80952b2794d err="read EOF from remote peer"
+2025-03-21 00:04:18,185 INFO t=2025-03-21T00:04:18+0530 lvl=info msg="client session established" obj=tunnels.session
+2025-03-21 00:04:18,186 INFO t=2025-03-21T00:04:18+0530 lvl=info msg="tunnel session started" obj=tunnels.session
+2025-03-21 00:04:19,887 ERROR t=2025-03-21T00:04:19+0530 lvl=eror msg="heartbeat timeout, terminating session" obj=tunnels.session obj=csess id=a226878d7bf2 clientid=eaba75727ea6fbdecccd5ac476ed3417
+2025-03-21 00:04:54,629 ERROR t=2025-03-21T00:04:54+0530 lvl=eror msg="heartbeat timeout, terminating session" obj=tunnels.session obj=csess id=53be0b84669a clientid=eaba75727ea6fbdecccd5ac476ed3417
+2025-03-21 00:04:54,630 ERROR t=2025-03-21T00:04:54+0530 lvl=eror msg="session closed, starting reconnect loop" obj=tunnels.session obj=csess id=a80952b2794d err="session closed"
+2025-03-21 00:04:54,632 ERROR t=2025-03-21T00:04:54+0530 lvl=eror msg="failed to reconnect session" obj=tunnels.session err="failed to dial ngrok server with address \"connect.us.ngrok-agent.com:443\": dial tcp: lookup connect.us.ngrok-agent.com: no such host"
+2025-03-21 00:04:55,159 ERROR t=2025-03-21T00:04:55+0530 lvl=eror msg="failed to reconnect session" obj=tunnels.session err="failed to dial ngrok server with address \"connect.us.ngrok-agent.com:443\": dial tcp: lookup connect.us.ngrok-agent.com: no such host"
+2025-03-21 00:04:56,163 ERROR t=2025-03-21T00:04:56+0530 lvl=eror msg="failed to reconnect session" obj=tunnels.session err="failed to dial ngrok server with address \"connect.us.ngrok-agent.com:443\": dial tcp: lookup connect.us.ngrok-agent.com: no such host"
+2025-03-21 00:20:22,349 ERROR t=2025-03-21T00:20:22+0530 lvl=eror msg="failed to reconnect session" obj=tunnels.session err="failed to dial ngrok server with address \"connect.us.ngrok-agent.com:443\": dial tcp: lookup connect.us.ngrok-agent.com: no such host"
+2025-03-21 00:35:28,103 ERROR t=2025-03-21T00:35:28+0530 lvl=eror msg="failed to reconnect session" obj=tunnels.session err="failed to dial ngrok server with address \"connect.us.ngrok-agent.com:443\": dial tcp: lookup connect.us.ngrok-agent.com: no such host"
+2025-03-21 00:51:29,905 ERROR t=2025-03-21T00:51:29+0530 lvl=eror msg="failed to reconnect session" obj=tunnels.session err="failed to dial ngrok server with address \"connect.us.ngrok-agent.com:443\": dial tcp: lookup connect.us.ngrok-agent.com: no such host"
+2025-03-21 01:39:11,235 ERROR t=2025-03-21T01:39:11+0530 lvl=eror msg="failed to reconnect session" obj=tunnels.session err="failed to dial ngrok server with address \"connect.us.ngrok-agent.com:443\": dial tcp: lookup connect.us.ngrok-agent.com: no such host"
+2025-03-21 02:52:36,120 ERROR t=2025-03-21T02:52:36+0530 lvl=eror msg="failed to reconnect session" obj=tunnels.session err="failed to dial ngrok server with address \"connect.us.ngrok-agent.com:443\": dial tcp: lookup connect.us.ngrok-agent.com: no such host"
+2025-03-21 04:34:17,660 ERROR t=2025-03-21T04:34:17+0530 lvl=eror msg="failed to reconnect session" obj=tunnels.session err="failed to dial ngrok server with address \"connect.us.ngrok-agent.com:443\": dial tcp: lookup connect.us.ngrok-agent.com: no such host"
+2025-03-21 05:56:40,512 ERROR t=2025-03-21T05:56:40+0530 lvl=eror msg="failed to reconnect session" obj=tunnels.session err="failed to dial ngrok server with address \"connect.us.ngrok-agent.com:443\": dial tcp: lookup connect.us.ngrok-agent.com: no such host"
+2025-03-21 07:03:43,900 ERROR t=2025-03-21T07:03:43+0530 lvl=eror msg="failed to reconnect session" obj=tunnels.session err="failed to dial ngrok server with address \"connect.us.ngrok-agent.com:443\": dial tcp: lookup connect.us.ngrok-agent.com: no such host"
+2025-03-21 08:13:15,667 ERROR t=2025-03-21T08:13:15+0530 lvl=eror msg="failed to reconnect session" obj=tunnels.session err="failed to dial ngrok server with address \"connect.us.ngrok-agent.com:443\": dial tcp: lookup connect.us.ngrok-agent.com: no such host"
+2025-03-21 08:59:32,479 ERROR t=2025-03-21T08:59:32+0530 lvl=eror msg="failed to reconnect session" obj=tunnels.session err="failed to dial ngrok server with address \"connect.us.ngrok-agent.com:443\": dial tcp: lookup connect.us.ngrok-agent.com: no such host"
+2025-03-21 09:39:37,752 INFO t=2025-03-21T09:39:37+0530 lvl=info msg="client session established" obj=tunnels.session
+2025-03-21 09:39:37,753 INFO t=2025-03-21T09:39:37+0530 lvl=info msg="tunnel session started" obj=tunnels.session
