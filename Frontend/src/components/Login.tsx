@@ -2,7 +2,9 @@ import { useState } from "react";
 import { Button } from "./ui/button";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../lib/auth-context";
-import { GoogleLogin } from "@react-oauth/google";
+import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
+
+const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -15,10 +17,10 @@ const Login = () => {
     e.preventDefault();
     setError(""); // Clear any previous errors
 
-    try {
-      await login(email, password);
-      navigate("/shop");
-    } catch (err) {
+    const success = await login(email, password);
+    if (success) {
+      navigate("/");
+    } else {
       setError("Invalid email or password. Please try again.");
     }
   };
@@ -92,43 +94,47 @@ const Login = () => {
           </div>
         </form>
 
-        <div className="mt-6">
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-300"></div>
+        {googleClientId && (
+          <div className="mt-6">
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-300"></div>
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="bg-white px-2 text-gray-500">
+                  Or continue with
+                </span>
+              </div>
             </div>
-            <div className="relative flex justify-center text-sm">
-              <span className="bg-white px-2 text-gray-500">
-                Or continue with
-              </span>
-            </div>
-          </div>
 
-          <div className="mt-6 grid grid-cols-1 gap-3">
-            <div className="flex justify-center">
-              <GoogleLogin
-                onSuccess={async (credentialResponse) => {
-                  if (credentialResponse.credential) {
-                    try {
-                      await loginWithGoogle(credentialResponse.credential);
-                      navigate("/shop");
-                    } catch (err) {
+            <div className="mt-6 grid grid-cols-1 gap-3">
+              <div className="flex justify-center">
+                <GoogleOAuthProvider clientId={googleClientId}>
+                  <GoogleLogin
+                    onSuccess={async (credentialResponse) => {
+                      if (credentialResponse.credential) {
+                        try {
+                          await loginWithGoogle(credentialResponse.credential);
+                          navigate("/");
+                        } catch (err) {
+                          setError("Google login failed. Please try again.");
+                        }
+                      }
+                    }}
+                    onError={() => {
                       setError("Google login failed. Please try again.");
-                    }
-                  }
-                }}
-                onError={() => {
-                  setError("Google login failed. Please try again.");
-                }}
-                theme="outline"
-                shape="rectangular"
-                size="large"
-                text="signin_with"
-                width="100%"
-              />
+                    }}
+                    theme="outline"
+                    shape="rectangular"
+                    size="large"
+                    text="signin_with"
+                    width="100%"
+                  />
+                </GoogleOAuthProvider>
+              </div>
             </div>
           </div>
-        </div>
+        )}
 
         <p className="mt-8 text-center text-sm text-gray-600">
           Don't have an account?{" "}

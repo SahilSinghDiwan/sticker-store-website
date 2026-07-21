@@ -32,12 +32,13 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <SnackbarProvider maxSnack={3}>
-        <AuthProvider>
           <Router>
+            <AuthProvider>
             <Routes>
               {/* Public Routes */}
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Signup />} />
+              <Route path="/signup" element={<Signup />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route path="/reset-password" element={<ResetPassword />} />
 
@@ -45,6 +46,7 @@ function App() {
               <Route element={<ProtectedRoute />}>
                 <Route element={<Layout />}>
                   <Route path="/" element={<Home />} />
+                  <Route path="/shop" element={<Home />} />
                   <Route path="/profile" element={<Profile />} />
                   <Route path="/cart" element={<Cart />} />
                   <Route path="/checkout" element={<Checkout />} />
@@ -69,8 +71,8 @@ function App() {
                 </Route>
               </Route>
             </Routes>
+            </AuthProvider>
           </Router>
-        </AuthProvider>
       </SnackbarProvider>
     </ThemeProvider>
   );
