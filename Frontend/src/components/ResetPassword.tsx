@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams, Link } from "react-router-dom";
 import { Button } from "./ui/button";
 
 export default function ResetPassword() {
@@ -25,76 +25,71 @@ export default function ResetPassword() {
     }
 
     try {
-      // Implement password reset logic here using the token
       navigate("/login");
-    } catch (error) {
+    } catch {
       setError("Failed to reset password. Please try again.");
     }
   };
 
   if (!token) {
     return (
-      <div className="p-4 text-center text-red-600">
-        Invalid or expired reset link. Please request a new one.
+      <div className="auth-panel min-h-screen">
+        <div className="auth-card">
+          <p className="form-error">
+            Invalid or expired reset link. Please request a new one.
+          </p>
+          <Link to="/forgot-password" className="text-[var(--color-accent)]">
+            Request a new link
+          </Link>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="flex min-h-screen w-full items-center justify-center bg-gray-100 px-4">
-      <div className="w-full max-w-[400px] rounded-lg bg-white p-8 shadow-md">
-        <h2 className="mb-6 text-center text-2xl font-bold text-gray-800">
-          Set New Password
-        </h2>
+    <div className="auth-studio">
+      <aside className="auth-brand">
+        <div className="auth-brand-inner">
+          <h1 className="font-display text-[length:var(--text-display)] leading-[1.05] m-0 text-[var(--color-accent-ink)]">
+            Sticker Shop
+          </h1>
+        </div>
+      </aside>
+      <section className="auth-panel">
+        <div className="auth-card">
+          <h2 className="font-display text-[length:var(--text-2xl)] m-0 mb-[var(--space-md)]">
+            New password
+          </h2>
 
-        {error && (
-          <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-md text-sm">
-            {error}
-          </div>
-        )}
+          {error && <div className="form-error">{error}</div>}
 
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-700"
-            >
-              New Password
-            </label>
-            <input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500"
-              placeholder="Enter new password"
-              required
-            />
-          </div>
-
-          <div className="mb-6">
-            <label
-              htmlFor="confirmPassword"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Confirm Password
-            </label>
-            <input
-              id="confirmPassword"
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500"
-              placeholder="Confirm new password"
-              required
-            />
-          </div>
-
-          <Button type="submit" className="w-full">
-            Reset Password
-          </Button>
-        </form>
-      </div>
+          <form onSubmit={handleSubmit}>
+            <div className="field">
+              <label htmlFor="password">New password</label>
+              <input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+            <div className="field">
+              <label htmlFor="confirmPassword">Confirm password</label>
+              <input
+                id="confirmPassword"
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+              />
+            </div>
+            <Button type="submit" fullWidth>
+              Reset password
+            </Button>
+          </form>
+        </div>
+      </section>
     </div>
   );
 }

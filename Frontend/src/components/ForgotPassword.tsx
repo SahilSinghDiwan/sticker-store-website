@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 
 export default function ForgotPassword() {
@@ -8,52 +9,61 @@ export default function ForgotPassword() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      // Implement password reset request logic here
       setMessage(
         "If an account exists with this email, you will receive a password reset link."
       );
-    } catch (error) {
+    } catch {
       setMessage("An error occurred. Please try again.");
     }
   };
 
   return (
-    <div className="flex min-h-screen w-full items-center justify-center bg-gray-100 px-4">
-      <div className="w-full max-w-[400px] rounded-lg bg-white p-8 shadow-md">
-        <h2 className="mb-6 text-center text-2xl font-bold text-gray-800">
-          Reset Password
-        </h2>
+    <div className="auth-studio">
+      <aside className="auth-brand">
+        <div className="auth-brand-inner">
+          <h1 className="font-display text-[length:var(--text-display)] leading-[1.05] m-0 text-[var(--color-accent-ink)]">
+            Sticker Shop
+          </h1>
+          <p className="mt-[var(--space-md)] text-[var(--text-md)] max-w-sm opacity-90">
+            We’ll send a reset link if that email is on file.
+          </p>
+        </div>
+      </aside>
+      <section className="auth-panel">
+        <div className="auth-card">
+          <h2 className="font-display text-[length:var(--text-2xl)] m-0 mb-[var(--space-md)]">
+            Reset password
+          </h2>
 
-        {message && (
-          <div className="mb-4 p-3 bg-blue-100 text-blue-700 rounded-md text-sm">
-            {message}
-          </div>
-        )}
+          {message && (
+            <div className="mb-[var(--space-sm)] p-[var(--space-xs)] rounded-[var(--radius-input)] bg-[var(--color-wash)] text-[var(--color-ink)] text-[var(--text-sm)]">
+              {message}
+            </div>
+          )}
 
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Email
-            </label>
-            <input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500"
-              placeholder="Enter your email"
-              required
-            />
-          </div>
+          <form onSubmit={handleSubmit}>
+            <div className="field">
+              <label htmlFor="email">Email</label>
+              <input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+            <Button type="submit" fullWidth>
+              Send reset link
+            </Button>
+          </form>
 
-          <Button type="submit" className="w-full">
-            Send Reset Link
-          </Button>
-        </form>
-      </div>
+          <p className="mt-[var(--space-lg)] text-[var(--text-sm)]">
+            <Link to="/login" className="text-[var(--color-accent)]">
+              Back to sign in
+            </Link>
+          </p>
+        </div>
+      </section>
     </div>
   );
 }

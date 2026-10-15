@@ -23,11 +23,15 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const variants = {
-      primary: "bg-primary-600 text-white hover:bg-primary-700 shadow-sm",
-      secondary: "bg-secondary-600 text-white hover:bg-secondary-700 shadow-sm",
-      outline: "border border-gray-300 text-gray-700 hover:bg-gray-50",
-      ghost: "text-gray-700 hover:bg-gray-100",
-      link: "text-primary-600 hover:underline p-0 h-auto",
+      primary:
+        "bg-[var(--color-accent)] text-[var(--color-accent-ink)] hover:brightness-95 active:translate-y-px",
+      secondary:
+        "bg-[var(--color-ink)] text-[var(--color-accent-ink)] hover:brightness-110 active:translate-y-px",
+      outline:
+        "border border-[var(--color-rule)] text-[var(--color-ink)] bg-transparent hover:bg-[var(--color-paper-2)] active:translate-y-px",
+      ghost:
+        "text-[var(--color-ink-2)] hover:text-[var(--color-ink)] hover:bg-[var(--color-paper-2)]",
+      link: "text-[var(--color-accent)] hover:underline p-0 h-auto",
     };
 
     const sizes = {
@@ -39,9 +43,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <button
         className={cn(
-          "inline-flex items-center justify-center font-medium transition-colors rounded-md",
-          "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500",
-          "disabled:opacity-50 disabled:cursor-not-allowed",
+          "inline-flex items-center justify-center font-medium whitespace-nowrap",
+          "rounded-[var(--radius-card)] transition-[background-color,transform,filter,color]",
+          "[transition-duration:var(--dur-short)] [transition-timing-function:var(--ease-out)]",
+          "focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)]",
+          "disabled:opacity-50 disabled:cursor-not-allowed disabled:active:translate-y-0",
           variant !== "link" && sizes[size],
           variants[variant],
           fullWidth && "w-full",
@@ -58,6 +64,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
+              aria-hidden
             >
               <circle
                 className="opacity-25"
@@ -73,7 +80,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
               />
             </svg>
-            Loading...
+            Working…
           </>
         ) : (
           children

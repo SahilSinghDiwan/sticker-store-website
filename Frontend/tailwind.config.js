@@ -5,12 +5,27 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      fontFamily: {
+        display: ["var(--font-display)"],
+        body: ["var(--font-body)"],
+        mono: ["var(--font-mono)"],
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
       colors: {
+        paper: "var(--color-paper)",
+        "paper-2": "var(--color-paper-2)",
+        ink: "var(--color-ink)",
+        "ink-2": "var(--color-ink-2)",
+        rule: "var(--color-rule)",
+        wash: "var(--color-wash)",
+        brand: {
+          DEFAULT: "var(--color-accent)",
+          ink: "var(--color-accent-ink)",
+        },
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {
@@ -24,10 +39,15 @@ export default {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
+          500: "hsl(var(--ring))",
+          600: "var(--color-accent)",
+          700: "color-mix(in oklch, var(--color-accent) 85%, black)",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
+          600: "var(--color-ink)",
+          700: "color-mix(in oklch, var(--color-ink) 85%, black)",
         },
         muted: {
           DEFAULT: "hsl(var(--muted))",

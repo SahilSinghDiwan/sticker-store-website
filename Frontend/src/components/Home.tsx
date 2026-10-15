@@ -46,58 +46,79 @@ export default function Home() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-[50vh]">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900" />
+      <div className="grid gap-6">
+        <div className="h-10 w-48 rounded-[var(--radius-card)] bg-[var(--color-paper-2)]" />
+        <div className="product-grid">
+          {Array.from({ length: 8 }).map((_, i) => (
+            <div key={i} className="product-tile">
+              <div className="product-media bg-[var(--color-paper-2)]" />
+              <div className="h-4 w-3/4 rounded bg-[var(--color-paper-2)]" />
+              <div className="h-3 w-1/2 rounded bg-[var(--color-paper-2)]" />
+            </div>
+          ))}
+        </div>
       </div>
     );
   }
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-6">Shop Stickers</h1>
+      <header className="mb-[var(--space-xl)] max-w-2xl">
+        <p className="font-mono text-[var(--text-xs)] uppercase tracking-[0.08em] text-[var(--color-ink-2)] mb-[var(--space-2xs)]">
+          Collection
+        </p>
+        <h1 className="font-display text-[length:var(--text-display)] leading-[1.05] m-0">
+          Sticker Shop
+        </h1>
+        <p className="mt-[var(--space-sm)] text-[var(--text-md)] text-[var(--color-ink-2)] max-w-prose">
+          Vinyl stickers from the print studio — peel, stick, claim a surface.
+        </p>
+      </header>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div className="product-grid">
         {products.map((product) => (
-          <div
-            key={product._id}
-            className="bg-white rounded-lg shadow overflow-hidden"
-          >
-            <div className="aspect-w-1 aspect-h-1">
+          <article key={product._id} className="product-tile">
+            <div className="product-media">
               <img
                 src={product.imageUrl}
                 alt={product.name}
-                className="w-full h-full object-cover"
+                loading="lazy"
               />
             </div>
-            <div className="p-4">
-              <h3 className="text-lg font-semibold">{product.name}</h3>
-              <p className="text-gray-600 mt-1 text-sm line-clamp-2">
+            <div className="min-w-0">
+              <h2 className="font-display text-[length:var(--text-lg)] m-0 leading-tight truncate">
+                {product.name}
+              </h2>
+              <p className="mt-[var(--space-3xs)] text-[var(--color-ink-2)] text-[var(--text-sm)] line-clamp-2">
                 {product.description}
               </p>
-              <div className="mt-4 flex items-center justify-between">
-                <span className="text-lg font-bold">
-                  ${product.price.toFixed(2)}
-                </span>
-                <Button
-                  onClick={() => addToCart(product._id)}
-                  disabled={product.stock === 0}
-                >
-                  {product.stock === 0 ? "Out of Stock" : "Add to Cart"}
-                </Button>
-              </div>
-              {product.stock < 5 && product.stock > 0 && (
-                <p className="text-sm text-orange-600 mt-2">
-                  Only {product.stock} left in stock!
-                </p>
-              )}
             </div>
-          </div>
+            <div className="mt-auto flex items-center justify-between gap-[var(--space-2xs)]">
+              <span className="price text-[var(--text-md)] font-medium">
+                ${product.price.toFixed(2)}
+              </span>
+              <Button
+                size="sm"
+                onClick={() => addToCart(product._id)}
+                disabled={product.stock === 0}
+              >
+                {product.stock === 0 ? "Sold out" : "Add"}
+              </Button>
+            </div>
+            {product.stock < 5 && product.stock > 0 && (
+              <p className="font-mono text-[var(--text-xs)] text-[var(--color-accent)] m-0">
+                {product.stock} left
+              </p>
+            )}
+          </article>
         ))}
       </div>
 
       {products.length === 0 && (
-        <div className="text-center py-12">
-          <p className="text-gray-500">No products available.</p>
+        <div className="py-[var(--space-2xl)]">
+          <p className="text-[var(--color-ink-2)] m-0">
+            No stickers in the rack yet.
+          </p>
         </div>
       )}
     </div>

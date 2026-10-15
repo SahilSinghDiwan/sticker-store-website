@@ -15,7 +15,7 @@ const Login = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError(""); // Clear any previous errors
+    setError("");
 
     const success = await login(email, password);
     if (success) {
@@ -26,88 +26,83 @@ const Login = () => {
   };
 
   return (
-    <div className="flex min-h-screen w-full items-center justify-center bg-gray-100 px-4">
-      <div className="w-full max-w-[30%] min-w-[300px] rounded-lg bg-white p-8 shadow-md">
-        <h2 className="mb-6 text-center text-2xl font-bold text-gray-800">
-          Login to Your Account
-        </h2>
+    <div className="auth-studio">
+      <aside className="auth-brand" aria-hidden={false}>
+        <div className="auth-brand-inner">
+          <p className="font-mono text-[var(--text-xs)] uppercase tracking-[0.1em] mb-[var(--space-sm)] opacity-80">
+            Print studio
+          </p>
+          <h1 className="font-display text-[length:var(--text-display)] leading-[1.05] m-0 text-[var(--color-accent-ink)]">
+            Sticker Shop
+          </h1>
+          <p className="mt-[var(--space-md)] text-[var(--text-md)] max-w-sm opacity-90">
+            Sign in to browse the rack, fill a cart, and peel something new onto
+            the world.
+          </p>
+        </div>
+      </aside>
 
-        {error && (
-          <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-md text-sm">
-            {error}
-          </div>
-        )}
+      <section className="auth-panel">
+        <div className="auth-card">
+          <h2 className="font-display text-[length:var(--text-2xl)] m-0 mb-[var(--space-md)]">
+            Sign in
+          </h2>
 
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Email
-            </label>
-            <input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500"
-              placeholder="Enter your email"
-              required
-            />
-          </div>
+          {error && <div className="form-error">{error}</div>}
 
-          <div className="mb-6">
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Password
-            </label>
-            <input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500"
-              placeholder="Enter your password"
-              required
-            />
-            <div className="mt-1 text-right">
-              <a
-                href="#"
-                className="text-sm text-indigo-600 hover:text-indigo-500"
-              >
-                Forgot password?
-              </a>
+          <form onSubmit={handleSubmit}>
+            <div className="field">
+              <label htmlFor="email">Email</label>
+              <input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="you@studio.com"
+                required
+                autoComplete="email"
+              />
             </div>
-          </div>
 
-          <div>
-            <Button
-              type="submit"
-              className="w-full bg-indigo-600 hover:bg-indigo-700"
-              disabled={isLoading}
-            >
-              {isLoading ? "Signing in..." : "Sign in"}
+            <div className="field">
+              <label htmlFor="password">Password</label>
+              <input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Your password"
+                required
+                autoComplete="current-password"
+              />
+              <div className="text-right">
+                <Link
+                  to="/forgot-password"
+                  className="text-[var(--text-sm)] text-[var(--color-accent)]"
+                >
+                  Forgot password?
+                </Link>
+              </div>
+            </div>
+
+            <Button type="submit" fullWidth loading={isLoading}>
+              Sign in
             </Button>
-          </div>
-        </form>
+          </form>
 
-        {googleClientId && (
-          <div className="mt-6">
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300"></div>
+          {googleClientId && (
+            <div className="mt-[var(--space-md)]">
+              <div className="relative my-[var(--space-md)]">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-[var(--color-rule)]" />
+                </div>
+                <div className="relative flex justify-center text-[var(--text-xs)]">
+                  <span className="bg-[var(--color-paper)] px-2 text-[var(--color-ink-2)] font-mono uppercase tracking-wide">
+                    Or continue with
+                  </span>
+                </div>
               </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="bg-white px-2 text-gray-500">
-                  Or continue with
-                </span>
-              </div>
-            </div>
 
-            <div className="mt-6 grid grid-cols-1 gap-3">
               <div className="flex justify-center">
                 <GoogleOAuthProvider clientId={googleClientId}>
                   <GoogleLogin
@@ -116,7 +111,7 @@ const Login = () => {
                         try {
                           await loginWithGoogle(credentialResponse.credential);
                           navigate("/");
-                        } catch (err) {
+                        } catch {
                           setError("Google login failed. Please try again.");
                         }
                       }
@@ -133,19 +128,19 @@ const Login = () => {
                 </GoogleOAuthProvider>
               </div>
             </div>
-          </div>
-        )}
+          )}
 
-        <p className="mt-8 text-center text-sm text-gray-600">
-          Don't have an account?{" "}
-          <Link
-            to="/signup"
-            className="font-medium text-indigo-600 hover:text-indigo-500"
-          >
-            Sign up
-          </Link>
-        </p>
-      </div>
+          <p className="mt-[var(--space-lg)] text-[var(--text-sm)] text-[var(--color-ink-2)]">
+            No account?{" "}
+            <Link
+              to="/signup"
+              className="font-medium text-[var(--color-accent)]"
+            >
+              Sign up
+            </Link>
+          </p>
+        </div>
+      </section>
     </div>
   );
 };

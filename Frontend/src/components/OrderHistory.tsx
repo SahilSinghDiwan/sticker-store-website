@@ -40,64 +40,80 @@ export default function OrderHistory() {
   }, []);
 
   if (loading) {
-    return <div className="flex justify-center p-8">Loading orders...</div>;
+    return (
+      <p className="text-[var(--color-ink-2)] font-mono text-[var(--text-sm)]">
+        Loading orders…
+      </p>
+    );
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-6">Order History</h1>
+    <div className="max-w-3xl">
+      <h1 className="font-display text-[length:var(--text-display-s)] m-0 mb-[var(--space-lg)]">
+        Orders
+      </h1>
 
-      <div className="space-y-4">
+      <div className="space-y-[var(--space-md)]">
         {orders.length === 0 ? (
-          <p className="text-gray-500 text-center py-8">No orders found</p>
+          <p className="text-[var(--color-ink-2)] py-[var(--space-xl)] border-t border-[var(--color-rule)]">
+            No orders yet.
+          </p>
         ) : (
           orders.map((order) => (
-            <div key={order._id} className="bg-white rounded-lg shadow p-6">
-              <div className="flex justify-between items-start mb-4">
+            <article
+              key={order._id}
+              className="border border-[var(--color-rule)] rounded-[var(--radius-card)] p-[var(--space-md)]"
+            >
+              <div className="flex justify-between items-start gap-[var(--space-sm)] mb-[var(--space-sm)]">
                 <div>
-                  <p className="text-sm text-gray-500">
-                    Order #{order._id.slice(-8)}
+                  <p className="font-mono text-[var(--text-xs)] text-[var(--color-ink-2)] m-0">
+                    #{order._id.slice(-8)}
                   </p>
-                  <p className="text-sm text-gray-500">
+                  <p className="font-mono text-[var(--text-xs)] text-[var(--color-ink-2)] m-0 mt-1">
                     {new Date(order.createdAt).toLocaleDateString()}
                   </p>
                 </div>
-                <div className="text-right">
-                  <span className="inline-block px-3 py-1 rounded-full text-sm capitalize bg-blue-100 text-blue-800">
-                    {order.status}
-                  </span>
-                </div>
+                <span className="font-mono text-[var(--text-xs)] uppercase tracking-wide text-[var(--color-accent)]">
+                  {order.status}
+                </span>
               </div>
 
-              <div className="border-t border-gray-200 pt-4">
+              <div className="border-t border-[var(--color-rule)] pt-[var(--space-sm)]">
                 {order.items.map((item, index) => (
-                  <div key={index} className="flex justify-between py-2">
-                    <div>
-                      <p className="font-medium">{item.product.name}</p>
-                      <p className="text-sm text-gray-500">
-                        Qty: {item.quantity}
+                  <div
+                    key={index}
+                    className="flex justify-between gap-4 py-[var(--space-2xs)]"
+                  >
+                    <div className="min-w-0">
+                      <p className="font-display m-0 truncate">
+                        {item.product.name}
+                      </p>
+                      <p className="font-mono text-[var(--text-xs)] text-[var(--color-ink-2)] m-0">
+                        Qty {item.quantity}
                       </p>
                     </div>
-                    <p className="font-medium">
+                    <p className="price m-0 shrink-0">
                       ${(item.product.price * item.quantity).toFixed(2)}
                     </p>
                   </div>
                 ))}
               </div>
 
-              <div className="border-t border-gray-200 mt-4 pt-4 flex justify-between">
-                <p className="font-semibold">Total</p>
-                <p className="font-semibold">${order.total.toFixed(2)}</p>
+              <div className="border-t border-[var(--color-rule)] mt-[var(--space-sm)] pt-[var(--space-sm)] flex justify-between">
+                <p className="font-mono text-[var(--text-xs)] uppercase m-0 text-[var(--color-ink-2)]">
+                  Total
+                </p>
+                <p className="price font-medium m-0">
+                  ${order.total.toFixed(2)}
+                </p>
               </div>
 
               {order.trackingNumber && (
-                <div className="mt-4 text-sm">
-                  <p className="text-gray-600">
-                    Tracking Number: {order.trackingNumber}
-                  </p>
-                </div>
+                <p className="font-mono text-[var(--text-xs)] text-[var(--color-ink-2)] mt-[var(--space-sm)] mb-0">
+                  Tracking {order.trackingNumber}
+                </p>
               )}
-            </div>
+            </article>
           ))
         )}
       </div>

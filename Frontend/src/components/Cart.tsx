@@ -32,62 +32,82 @@ export default function Cart() {
   );
 
   return (
-    <div className="max-w-4xl mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-6">Shopping Cart</h1>
+    <div className="max-w-3xl">
+      <h1 className="font-display text-[length:var(--text-display-s)] m-0 mb-[var(--space-lg)]">
+        Cart
+      </h1>
 
       {items.length === 0 ? (
-        <div className="text-center py-8">
-          <p className="text-gray-600 mb-4">Your cart is empty</p>
+        <div className="py-[var(--space-xl)] border-t border-[var(--color-rule)]">
+          <p className="text-[var(--color-ink-2)] mb-[var(--space-md)]">
+            Your cart is empty.
+          </p>
           <Link to="/">
-            <Button>Continue Shopping</Button>
+            <Button>Continue shopping</Button>
           </Link>
         </div>
       ) : (
         <>
-          <div className="space-y-4">
+          <ul className="list-none m-0 p-0 divide-y divide-[var(--color-rule)] border-y border-[var(--color-rule)]">
             {items.map((item) => (
-              <div
+              <li
                 key={item._id}
-                className="flex items-center gap-4 bg-white p-4 rounded-lg shadow"
+                className="flex flex-wrap items-center gap-[var(--space-sm)] py-[var(--space-md)]"
               >
                 <img
                   src={item.image_url}
                   alt={item.name}
-                  className="w-20 h-20 object-cover rounded"
+                  className="w-16 h-16 object-cover rounded-[var(--radius-card)] border border-[var(--color-rule)]"
                 />
-                <div className="flex-grow">
-                  <h3 className="font-medium">{item.name}</h3>
-                  <p className="text-gray-600">${item.price.toFixed(2)}</p>
+                <div className="flex-grow min-w-0">
+                  <h3 className="font-display text-[length:var(--text-md)] m-0 truncate">
+                    {item.name}
+                  </h3>
+                  <p className="price text-[var(--color-ink-2)] m-0 mt-1">
+                    ${item.price.toFixed(2)}
+                  </p>
                 </div>
                 <div className="flex items-center gap-2">
                   <Button
                     variant="outline"
+                    size="sm"
                     onClick={() => updateQuantity(item._id, item.quantity - 1)}
+                    aria-label="Decrease quantity"
                   >
-                    -
+                    −
                   </Button>
-                  <span className="w-8 text-center">{item.quantity}</span>
+                  <span className="price w-8 text-center">{item.quantity}</span>
                   <Button
                     variant="outline"
+                    size="sm"
                     onClick={() => updateQuantity(item._id, item.quantity + 1)}
+                    aria-label="Increase quantity"
                   >
                     +
                   </Button>
                 </div>
-                <Button variant="outline" onClick={() => removeItem(item._id)}>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => removeItem(item._id)}
+                >
                   Remove
                 </Button>
-              </div>
+              </li>
             ))}
-          </div>
+          </ul>
 
-          <div className="mt-8 bg-white p-6 rounded-lg shadow">
-            <div className="flex justify-between mb-4">
-              <span className="font-medium">Total:</span>
-              <span className="font-bold">${total.toFixed(2)}</span>
+          <div className="mt-[var(--space-lg)] flex flex-wrap items-center justify-between gap-[var(--space-md)]">
+            <div>
+              <span className="font-mono text-[var(--text-xs)] uppercase tracking-wide text-[var(--color-ink-2)]">
+                Total
+              </span>
+              <p className="price text-[length:var(--text-xl)] font-medium m-0">
+                ${total.toFixed(2)}
+              </p>
             </div>
             <Link to="/checkout">
-              <Button className="w-full">Proceed to Checkout</Button>
+              <Button size="lg">Checkout</Button>
             </Link>
           </div>
         </>

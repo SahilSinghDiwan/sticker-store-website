@@ -13,101 +13,94 @@ export default function Profile() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Implement profile update logic here
     setIsEditing(false);
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-6">Profile</h1>
+    <div className="max-w-xl">
+      <h1 className="font-display text-[length:var(--text-display-s)] m-0 mb-[var(--space-lg)]">
+        Profile
+      </h1>
 
-      <div className="bg-white rounded-lg shadow p-6">
+      <div className="border border-[var(--color-rule)] rounded-[var(--radius-card)] p-[var(--space-md)] bg-[var(--color-paper-2)]">
         {isEditing ? (
           <form onSubmit={handleSubmit}>
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  First Name
-                </label>
-                <input
-                  type="text"
-                  value={formData.firstName}
-                  onChange={(e) =>
-                    setFormData((prev) => ({
-                      ...prev,
-                      firstName: e.target.value,
-                    }))
-                  }
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Last Name
-                </label>
-                <input
-                  type="text"
-                  value={formData.lastName}
-                  onChange={(e) =>
-                    setFormData((prev) => ({
-                      ...prev,
-                      lastName: e.target.value,
-                    }))
-                  }
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Phone Number
-                </label>
-                <input
-                  type="tel"
-                  value={formData.phoneNumber}
-                  onChange={(e) =>
-                    setFormData((prev) => ({
-                      ...prev,
-                      phoneNumber: e.target.value,
-                    }))
-                  }
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2"
-                />
-              </div>
-              <div className="flex gap-2">
-                <Button type="submit">Save Changes</Button>
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={() => setIsEditing(false)}
-                >
-                  Cancel
-                </Button>
-              </div>
+            <div className="field">
+              <label htmlFor="firstName">First name</label>
+              <input
+                id="firstName"
+                type="text"
+                value={formData.firstName}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    firstName: e.target.value,
+                  }))
+                }
+              />
+            </div>
+            <div className="field">
+              <label htmlFor="lastName">Last name</label>
+              <input
+                id="lastName"
+                type="text"
+                value={formData.lastName}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    lastName: e.target.value,
+                  }))
+                }
+              />
+            </div>
+            <div className="field">
+              <label htmlFor="phoneNumber">Phone</label>
+              <input
+                id="phoneNumber"
+                type="tel"
+                value={formData.phoneNumber}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    phoneNumber: e.target.value,
+                  }))
+                }
+              />
+            </div>
+            <div className="flex gap-2">
+              <Button type="submit">Save</Button>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => setIsEditing(false)}
+              >
+                Cancel
+              </Button>
             </div>
           </form>
         ) : (
-          <div className="space-y-4">
+          <div className="space-y-[var(--space-md)]">
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <p className="font-mono text-[var(--text-xs)] uppercase tracking-wide text-[var(--color-ink-2)] m-0">
                 Email
-              </label>
-              <p className="mt-1">{user?.email}</p>
+              </p>
+              <p className="m-0 mt-1">{user?.email}</p>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <p className="font-mono text-[var(--text-xs)] uppercase tracking-wide text-[var(--color-ink-2)] m-0">
                 Name
-              </label>
-              <p className="mt-1">
+              </p>
+              <p className="m-0 mt-1">
                 {user?.firstName} {user?.lastName}
               </p>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Phone Number
-              </label>
-              <p className="mt-1">{user?.phoneNumber}</p>
+              <p className="font-mono text-[var(--text-xs)] uppercase tracking-wide text-[var(--color-ink-2)] m-0">
+                Phone
+              </p>
+              <p className="m-0 mt-1">{user?.phoneNumber}</p>
             </div>
-            <Button onClick={() => setIsEditing(true)}>Edit Profile</Button>
+            <Button onClick={() => setIsEditing(true)}>Edit</Button>
           </div>
         )}
       </div>
