@@ -15,3 +15,9 @@ graphify-out/
 .vite/
 *.tsbuildinfo
 .DS_Store
+
+# Local agent tooling
+.agents/
+.cursor/
+.graphifyignore
+.hallmark/
