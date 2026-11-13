@@ -1,6 +1,7 @@
 node_modules/
 .env
 .env*
+!.env.example
 __pycache__
 scratchpad.txt
 
@@ -8,3 +9,9 @@ scratchpad.txt
 Frontend/dist/
 *.log
 graphify-out/
+
+# Local tooling output
+.venv/
+.vite/
+*.tsbuildinfo
+.DS_Store
