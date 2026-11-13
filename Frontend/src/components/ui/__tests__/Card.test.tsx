@@ -10,15 +10,15 @@ describe("Card Components", () => {
 
     it("applies different padding sizes correctly", () => {
       const { rerender } = render(<Card padding="small">Content</Card>);
-      expect(screen.getByText("Content").parentElement).toHaveClass("p-3");
+      expect(screen.getByText("Content")).toHaveClass("p-3");
 
       rerender(<Card padding="large">Content</Card>);
-      expect(screen.getByText("Content").parentElement).toHaveClass("p-6");
+      expect(screen.getByText("Content")).toHaveClass("p-6");
     });
 
     it("applies hoverable styles when hoverable prop is true", () => {
       render(<Card hoverable>Content</Card>);
-      expect(screen.getByText("Content").parentElement).toHaveClass(
+      expect(screen.getByText("Content")).toHaveClass(
         "transition-shadow",
         "hover:shadow-md",
         "cursor-pointer"

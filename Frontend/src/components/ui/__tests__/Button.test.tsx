@@ -9,13 +9,13 @@ describe("Button Component", () => {
 
   it("applies different variants correctly", () => {
     const { rerender } = render(<Button variant="primary">Button</Button>);
-    expect(screen.getByText("Button")).toHaveClass("bg-primary-600");
+    expect(screen.getByText("Button")).toHaveClass("bg-[var(--color-accent)]");
 
     rerender(<Button variant="secondary">Button</Button>);
-    expect(screen.getByText("Button")).toHaveClass("bg-secondary-600");
+    expect(screen.getByText("Button")).toHaveClass("bg-[var(--color-ink)]");
 
     rerender(<Button variant="outline">Button</Button>);
-    expect(screen.getByText("Button")).toHaveClass("border-gray-300");
+    expect(screen.getByText("Button")).toHaveClass("border-[var(--color-rule)]");
   });
 
   it("applies different sizes correctly", () => {
@@ -37,7 +37,7 @@ describe("Button Component", () => {
   it("displays loading state correctly", () => {
     render(<Button loading>Submit</Button>);
 
-    expect(screen.getByText("Loading...")).toBeInTheDocument();
+    expect(screen.getByText("Working…")).toBeInTheDocument();
     expect(screen.queryByText("Submit")).not.toBeInTheDocument();
     expect(screen.getByRole("button")).toBeDisabled();
   });

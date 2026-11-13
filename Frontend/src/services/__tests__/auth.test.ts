@@ -1,6 +1,13 @@
+/**
+ * @jest-environment node
+ */
 import { http, HttpResponse } from "msw";
 import { setupServer } from "msw/node";
+import axios from "axios";
 import { authService } from "../auth";
+
+// Node has no page origin, so give axios one for relative /api URLs.
+axios.defaults.baseURL = "http://localhost";
 
 interface LoginRequest {
   email: string;
@@ -27,7 +34,7 @@ interface AuthResponse {
 
 const server = setupServer(
   // Mock login endpoint
-  http.post("/api/auth/login", async ({ request }) => {
+  http.post("http://localhost/api/auth/login", async ({ request }) => {
     const body = (await request.json()) as LoginRequest;
 
     if (body.email === "test@example.com" && body.password === "password123") {
@@ -54,7 +61,7 @@ const server = setupServer(
   }),
 
   // Mock register endpoint
-  http.post("/api/auth/register", async ({ request }) => {
+  http.post("http://localhost/api/auth/register", async ({ request }) => {
     const body = (await request.json()) as RegisterRequest;
 
     if (body.email === "existing@example.com") {

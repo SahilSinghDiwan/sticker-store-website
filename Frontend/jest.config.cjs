@@ -5,6 +5,7 @@ module.exports = {
   moduleNameMapper: {
     "\\.(css|less|scss|sass)$": "identity-obj-proxy",
     "^@/(.*)$": "<rootDir>/src/$1",
+    "^axios$": "<rootDir>/node_modules/axios/dist/node/axios.cjs",
   },
   testMatch: ["**/__tests__/**/*.test.(ts|tsx)"],
   transform: {
@@ -13,6 +14,7 @@ module.exports = {
   globals: {
     "ts-jest": {
       tsconfig: "tsconfig.app.json",
+      diagnostics: { ignoreCodes: [1259] },
     },
   },
 };
