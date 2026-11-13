@@ -1,6 +1,7 @@
 """Minimal Flask API for local Docker development."""
 
 import os
+import re
 import time
 from datetime import datetime, timedelta
 from pathlib import PurePosixPath
@@ -8,6 +9,7 @@ from urllib.parse import quote
 
 import boto3
 from bson import ObjectId
+from bson.errors import InvalidId
 from dotenv import load_dotenv
 from flask import Flask, jsonify, request
 from flask_cors import CORS
@@ -52,6 +54,9 @@ users = None
 products = None
 carts = None
 
+EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
+MIN_PASSWORD_LENGTH = 8
+
 R2_IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".webp", ".gif", ".avif", ".svg"}
 
 
@@ -74,6 +79,18 @@ def connect_db(retries: int = 30, delay: float = 2.0) -> None:
             time.sleep(delay)
 
     raise RuntimeError(f"Could not connect to MongoDB at {MONGO_URI}") from last_error
+
+
+def is_valid_email(value) -> bool:
+    return isinstance(value, str) and len(value) <= 254 and bool(EMAIL_RE.match(value))
+
+
+def to_object_id(value):
+    """Return an ObjectId for value, or None if it is not a valid id."""
+    try:
+        return ObjectId(value)
+    except (InvalidId, TypeError):
+        return None
 
 
 def serialize_user(doc: dict) -> dict:
@@ -243,6 +260,12 @@ def register():
     if not all(data.get(field) for field in required):
         return jsonify({"message": "Missing required fields"}), 400
 
+    if not is_valid_email(data["email"]):
+        return jsonify({"message": "Invalid email address"}), 400
+
+    if not isinstance(data["password"], str) or len(data["password"]) < MIN_PASSWORD_LENGTH:
+        return jsonify({"message": f"Password must be at least {MIN_PASSWORD_LENGTH} characters"}), 400
+
     if users.find_one({"email": data["email"]}):
         return jsonify({"message": "User already exists"}), 400
 
@@ -272,6 +295,9 @@ def login():
     if not email or not password:
         return jsonify({"message": "Email and password are required"}), 400
 
+    if not is_valid_email(email) or not isinstance(password, str):
+        return jsonify({"message": "Invalid email or password format"}), 400
+
     user_doc = users.find_one({"email": email})
     if not user_doc or not check_password_hash(user_doc["password"], password):
         return jsonify({"message": "Invalid credentials"}), 401
@@ -286,7 +312,10 @@ def login():
 @jwt_required()
 def me():
     user_id = get_jwt_identity()
-    user_doc = users.find_one({"_id": ObjectId(user_id)})
+    object_id = to_object_id(user_id)
+    if object_id is None:
+        return jsonify({"message": "Invalid user identity in token"}), 401
+    user_doc = users.find_one({"_id": object_id})
     if not user_doc:
         return jsonify({"message": "User not found"}), 404
     return jsonify({"user": serialize_user(user_doc)})
@@ -312,10 +341,19 @@ def list_products():
 def add_cart_item():
     data = request.get_json() or {}
     product_id = data.get("productId")
-    quantity = int(data.get("quantity", 1))
+    try:
+        quantity = int(str(data.get("quantity", 1)))
+    except ValueError:
+        return jsonify({"message": "quantity must be an integer"}), 400
 
     if not product_id or quantity < 1:
         return jsonify({"message": "productId and quantity are required"}), 400
+
+    product_oid = to_object_id(product_id) if isinstance(product_id, str) else None
+    if product_oid is None:
+        return jsonify({"message": "productId is not a valid product id"}), 400
+    if products.find_one({"_id": product_oid}, {"_id": 1}) is None:
+        return jsonify({"message": "Product not found"}), 404
 
     user_id = get_jwt_identity()
     cart = carts.find_one({"userId": user_id}) or {"userId": user_id, "items": []}
@@ -335,9 +373,10 @@ def add_cart_item():
     return jsonify({"message": "Item added to cart", "items": items})
 
 
-with app.app_context():
-    connect_db()
-    seed_products()
+if os.getenv("SKIP_DB_INIT") != "1":  # tests set this and supply fake collections
+    with app.app_context():
+        connect_db()
+        seed_products()
 
 
 if __name__ == "__main__":
