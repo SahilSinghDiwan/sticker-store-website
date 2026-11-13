@@ -44,9 +44,13 @@ api.interceptors.response.use(
         }
 
         // Try to get a new token
-        const response = await axios.post(`${BASE_URL}/auth/refresh`, {
-          refreshToken,
-        });
+        // The backend uses @jwt_required(refresh=True), which reads the
+        // refresh token from the Authorization header, not the body.
+        const response = await axios.post(
+          `${BASE_URL}/auth/refresh`,
+          {},
+          { headers: { Authorization: `Bearer ${refreshToken}` } }
+        );
 
         const { token } = response.data as RefreshResponse;
         localStorage.setItem("token", token);
